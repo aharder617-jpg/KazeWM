@@ -1,0 +1,24 @@
+[package]
+name = "lumo"
+version = "0.1.0"
+edition = "2021"
+description = "Lightweight Wayland compositor with Lua configuration (Phase 1: nested prototype)"
+
+[dependencies]
+# Features are listed explicitly to keep the build small. If cargo complains
+# about a missing feature, remove `default-features = false` to use Smithay's defaults.
+smithay = { version = "0.7", default-features = false, features = [
+    "backend_winit",
+    "renderer_gl",
+    "desktop",
+    "wayland_frontend",
+] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+strip = true
